@@ -24,3 +24,15 @@ uid.generator.config.zookeeper.namespace=
 uid.generator.config.zookeeper.max-retries=
 uid.generator.config.zookeeper.base-sleep-time-ms=
 ```
+
+
+在需要使用id生成器的地方注入IdWork
+```
+import org.uid.generator.support.IdWorker;
+
+
+    @Resource
+    private IdWorker idWorker;
+    
+    long id = idWorker.nextId();
+```
