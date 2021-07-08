@@ -16,7 +16,7 @@ uid.generator.config.redis.lettuce.pool.max-idle=
 uid.generator.config.redis.lettuce.pool.min-idle=
 ```
 
-2.使用zookeeper的测试
+2.使用zookeeper的策略
 ```
 uid.generator.config.strategy=zookeeper
 uid.generator.config.zookeeper.connect-string=
