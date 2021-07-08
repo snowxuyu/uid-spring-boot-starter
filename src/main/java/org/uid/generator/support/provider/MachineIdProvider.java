@@ -4,7 +4,7 @@ package org.uid.generator.support.provider;
  * Copyright: 机器ID提供者
  * Description:
  * Date: 2021/7/7 5:39 下午
- * Author: gaoguoxiang
+ * @author snowxuyu
  */
 
 public interface MachineIdProvider {

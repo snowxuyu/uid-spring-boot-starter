@@ -7,7 +7,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  * Copyright:  基于Redis的机器ID提供者
  * Description:
  * Date: 2021/7/7 5:40 下午
- * Author: gaoguoxiang
+ * @author snowxuyu
  */
 
 public class RedisMachineIdProvider implements MachineIdProvider{

@@ -4,7 +4,7 @@ package org.uid.generator.autoconfigure;
  * Copyright:
  * Description:
  * Date: 2021/7/7 5:12 下午
- * Author: gaoguoxiang
+ * @author snowxuyu
  */
 
 import lombok.Data;

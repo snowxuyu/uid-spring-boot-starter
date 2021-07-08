@@ -4,7 +4,7 @@ package org.uid.generator.support;
  * Copyright:
  * Description:
  * Date: 2021/7/7 5:40 下午
- * Author: gaoguoxiang
+ * @author snowxuyu
  */
 
 public class IdWorker {
