@@ -20,12 +20,10 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.uid.generator.support.IdWorker;
 import org.uid.generator.support.provider.RedisMachineIdProvider;
 import org.uid.generator.support.provider.ZookeeperMachineIdProvider;
+import org.uid.generator.support.util.InnerIpAddressUtils;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.Enumeration;
 
 /**
  * Copyright:
@@ -68,7 +66,7 @@ public class UidGeneratorAutoConfigure {
     @ConditionalOnBean(RedisMachineIdProvider.class)
     public IdWorker idWorkerRedis(RedisMachineIdProvider machineIdProvider) throws SocketException, UnknownHostException {
         log.info("===============初始化基于redis的id生成器===============");
-        String innerIpAddress = getInnerIpAddress();
+        String innerIpAddress = InnerIpAddressUtils.getInnerIpAddress();
         long machineId = machineIdProvider.getMachineId(innerIpAddress);
         long workerId = machineId % MACHINE_MASK;
         long dataCenterId = machineId >> 5;
@@ -79,7 +77,7 @@ public class UidGeneratorAutoConfigure {
     @ConditionalOnBean(ZookeeperMachineIdProvider.class)
     public IdWorker idWorkerZookeeper(ZookeeperMachineIdProvider machineIdProvider) throws SocketException, UnknownHostException {
         log.info("===============初始化基于zookeeper的id生成器===============");
-        String innerIpAddress = getInnerIpAddress();
+        String innerIpAddress = InnerIpAddressUtils.getInnerIpAddress();
         long machineId = machineIdProvider.getMachineId(innerIpAddress);
         long workerId = machineId % MACHINE_MASK;
         long dataCenterId = machineId >> 5;
@@ -138,32 +136,4 @@ public class UidGeneratorAutoConfigure {
             return config;
         }
     }
-
-    /**
-     * 获取内网IP
-     *
-     * @return
-     * @throws SocketException
-     * @throws UnknownHostException
-     */
-    private String getInnerIpAddress() throws SocketException, UnknownHostException {
-        InetAddress candidateAddress = null;
-        Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
-        while (networkInterfaces.hasMoreElements()) {
-            NetworkInterface iface = networkInterfaces.nextElement();
-            for (Enumeration<InetAddress> inetAddrs = iface.getInetAddresses(); inetAddrs.hasMoreElements(); ) {
-                InetAddress inetAddr = inetAddrs.nextElement();
-                if ( !inetAddr.isLoopbackAddress() ) {
-                    if ( inetAddr.isSiteLocalAddress() ) {
-                        return inetAddr.getHostAddress();
-                    }
-                    if ( candidateAddress == null ) {
-                        candidateAddress = inetAddr;
-                    }
-                }
-            }
-        }
-        return candidateAddress == null ? InetAddress.getLocalHost().getHostAddress() : candidateAddress.getHostAddress();
-    }
-
 }
