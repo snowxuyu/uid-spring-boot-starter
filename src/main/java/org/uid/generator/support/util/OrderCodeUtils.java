@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 19位订单号生成策略: 13位毫秒时间戳+内网IP地址取模(2位)+4位自增流水
  * 21位订单号生成策略: 10位毫秒时间戳+内网IP地址取模(2位)+4位自增流水+用户id后5位
  * Date: 2021/7/9 9:40 上午
- * Author: gaoguoxiang
+ * @author snowxuyu
  */
 @Slf4j
 public class OrderCodeUtils {
